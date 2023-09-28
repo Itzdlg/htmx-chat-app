@@ -1,0 +1,20 @@
+@import jte.components.messages.MessageModel
+@import kotlin.collections.List
+
+@param messages: List<MessageModel>
+
+@if (messages.isNotEmpty())
+    <p class="text-center text-blue-500 py-3 hover:underline hover:cursor-pointer"
+       hx-get="/messages/before?time=${messages.firstOrNull()?.messageSentAt ?: 0}"
+       hx-trigger="click"
+       hx-swap="outerHTML"
+    >
+        Load Previous Messages
+    </p>
+
+    <div class="grid gap-3 grid-cols-10">
+        @for (message in messages)
+            @template.components.messages.message(message = message)
+        @endfor
+    </div>
+@endif

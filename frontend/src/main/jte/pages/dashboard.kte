@@ -1,0 +1,41 @@
+@import org.jetbrains.exposed.sql.SortOrder
+@import org.jetbrains.exposed.sql.select
+@import org.jetbrains.exposed.sql.selectAll
+@import sh.dominick.htmxpracticeapp.backend.sql.MessagesTable
+@import org.jetbrains.exposed.sql.selectAll
+@import org.jetbrains.exposed.sql.transactions.transaction
+@import io.javalin.http.Context
+@import sh.dominick.htmxpracticeapp.backend.sql.UsersTable
+@import jte.components.messages.MessageModel
+
+@param ctx: Context
+
+<head>
+    <script src="htmx.min.js"></script>
+    <script src="tailwind.min.js"></script>
+
+    <title>HTMX Practice App</title>
+</head>
+<body>
+    @template.components.nav()
+
+    <div class="flex justify-center">
+        <div id="center-body" class="w-[940px] mx-3 mt-10">
+            !{
+                val messages = transaction {
+                    MessagesTable
+                        .innerJoin(UsersTable)
+                        .selectAll()
+                        .orderBy(MessagesTable.sentAt to SortOrder.DESC)
+                        .limit(50)
+                        .map(MessageModel::from)
+                        .reversed()
+                 }
+            }
+            
+            @template.components.messages.messageViewer(messages = messages)
+
+            @template.components.messages.sendMessage()
+        </div>
+    </div>
+</body>

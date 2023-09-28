@@ -1,0 +1,60 @@
+@import java.util.UUID
+
+@param message: String
+
+!{ val domId = UUID.randomUUID().toString() }
+
+<!--suppress CssUnusedSymbol -->
+<!--suppress CssInvalidPseudoSelector -->
+<style>
+    @keyframes ${domId}-fade-in {
+        from { opacity: 0; }
+    }
+
+    @keyframes ${domId}-fade-out {
+        to { opacity: 0; }
+    }
+
+    @keyframes ${domId}-slide-from-left {
+        from { transform: translateX(-90px); }
+    }
+
+    @keyframes ${domId}-slide-from-right {
+        from { transform: translateX(90px); }
+    }
+
+    @keyframes ${domId}-slide-to-left {
+        to { transform: translateX(-90px); }
+    }
+
+    @keyframes ${domId}-slide-to-right {
+        to { transform: translateX(90px); }
+    }
+
+    .${domId}-slide-in {
+        view-transition-name: ${domId}-slide-in;
+    }
+
+    ::view-transition-old(${domId}-slide-in) {
+        animation: 180ms cubic-bezier(0.4, 0, 1, 1) both ${domId}-fade-out,
+        300ms cubic-bezier(0.4, 0, 0.2, 1) both ${domId}-slide-to-right;
+    }
+    ::view-transition-new(${domId}-slide-in) {
+        animation: 420ms cubic-bezier(0, 0, 0.2, 1) 90ms both ${domId}-fade-in,
+        300ms cubic-bezier(0.4, 0, 0.2, 1) both ${domId}-slide-from-left;
+    }
+</style>
+
+@if (message.isNotEmpty())
+<div class="${domId}-slide-in w-full h-12 bg-red-500 flex items-center rounded-xl">
+    <div class="px-3">
+        <p class="text-white">(!)</p>
+    </div>
+
+    <div class="flex justify-center">
+        <p class="text-white">${message}</p>
+    </div>
+</div>
+
+<div class="h-5"></div>
+@endif

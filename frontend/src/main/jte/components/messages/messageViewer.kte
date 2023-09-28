@@ -1,0 +1,30 @@
+@import jte.components.messages.MessageModel
+@import java.util.*
+@import kotlin.collections.List
+
+@param messages: List<MessageModel>
+ 
+!{ val domId = UUID.randomUUID().toString() }
+
+<div id="message-viewer-${domId}" class="shadow-lg rounded-md">
+    <p class="text-2xl font-semibold text-center">Messages</p>
+    <hr />
+
+    <div id="message-viewer-${domId}-messages" class="mx-3 h-96 overflow-y-scroll">
+        @template.components.messages.prependMessageList(messages)
+        @template.components.messages.appendMessageList(emptyList<MessageModel>(), messages.lastOrNull())
+    </div>
+    
+    <script>
+        setInterval(() => {
+          let viewer = document.getElementById("message-viewer-${domId}")
+          let children = document.getElementById("message-viewer-${domId}-messages").children
+          let lastMessageEl = children.item(children.length - 2)
+
+          if (viewer.lastMessageChecked !== lastMessageEl) {
+            viewer.lastMessageChecked = lastMessageEl
+            lastMessageEl.scrollIntoView()
+          }
+        }, 150)
+    </script>
+</div>

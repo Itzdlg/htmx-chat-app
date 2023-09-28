@@ -1,0 +1,24 @@
+@import jte.components.messages.MessageModel
+
+@param message: MessageModel
+
+!{ val domId = "message-" + message.id }
+
+<div class="message-timestamp opacity-70" id="${domId}-timestamp">
+    ...
+</div>
+
+<script>
+  window.messageEl = document.getElementById("${domId}-timestamp")
+  window.messageDate = new Date(${message.messageSentAt})
+
+  window.messageEl.innerText = window.messageDate.toLocaleTimeString()
+</script>
+
+<div class="message-author" id="${domId}-author">
+    ${message.displayName}
+</div>
+
+<div class="message-content col-span-8" id="${domId}-content">
+    ${message.messageContent}
+</div>
