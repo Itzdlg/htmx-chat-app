@@ -55,6 +55,7 @@ object MessageRoutes {
     @Post("/messages/send")
     fun sendMessage(ctx: Context) {
         if (ctx.session == null) return
+        ctx.render("components/messages/sendMessage.kte")
 
         val messageContent = ctx.formParam("messageContent")
         if (messageContent.isNullOrBlank()) return

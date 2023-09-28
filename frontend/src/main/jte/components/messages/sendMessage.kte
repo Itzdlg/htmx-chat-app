@@ -1,9 +1,13 @@
 !{ val domId = java.util.UUID.randomUUID().toString() }
 
-<div class="w-full bg-gray-200 text-black my-4 shadow-md rounded-md">
-    <form hx-post="/messages/send" hx-trigger="click from:#send-message-${domId}" hx-swap="none">
+<div id="send-message-${domId}-container" class="w-full bg-gray-200 text-black my-4 shadow-md rounded-md">
+    <form hx-post="/messages/send"
+          hx-trigger="click from:#send-message-${domId}"
+          hx-swap="outerHTML"
+          hx-target="#send-message-${domId}-container"
+    >
         <div class="h-12 flex space-between">
-            <input name="messageContent" placeholder="Type a message..." class="w-full px-3">
+            <input name="messageContent" placeholder="Type a message..." class="w-full px-3" autofocus>
 
             <button id="send-message-${domId}" class="w-16">-></button>
         </div>
