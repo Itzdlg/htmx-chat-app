@@ -1,9 +1,12 @@
+@import io.javalin.http.Context
 @import jte.components.messages.MessageModel
+@import org.jetbrains.exposed.sql.ResultRow
 @import java.util.*
 @import kotlin.collections.List
 
 @param messages: List<MessageModel>
- 
+@param attention: List<ResultRow>
+
 !{ val domId = UUID.randomUUID().toString() }
 
 <div id="message-viewer-${domId}" class="shadow-lg rounded-md">
@@ -11,8 +14,8 @@
     <hr />
 
     <div id="message-viewer-${domId}-messages" class="mx-3 h-96 overflow-y-scroll">
-        @template.components.messages.prependMessageList(messages)
-        @template.components.messages.appendMessageList(emptyList<MessageModel>(), messages.lastOrNull())
+        @template.components.messages.prependMessageList(messages, attention)
+        @template.components.messages.appendMessageList(emptyList<MessageModel>(), messages.lastOrNull(), attention)
         <div id="message-viewer-${domId}-bottom" class="h-3"></div>
     </div>
     

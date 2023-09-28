@@ -1,11 +1,12 @@
+@import app.etc.session
 @import org.jetbrains.exposed.sql.SortOrder
 @import org.jetbrains.exposed.sql.select
 @import org.jetbrains.exposed.sql.selectAll
-@import sh.dominick.htmxpracticeapp.backend.sql.MessagesTable
+@import sh.dominick.htmxpracticeapp.shared.sql.MessagesTable
 @import org.jetbrains.exposed.sql.selectAll
 @import org.jetbrains.exposed.sql.transactions.transaction
 @import io.javalin.http.Context
-@import sh.dominick.htmxpracticeapp.backend.sql.UsersTable
+@import sh.dominick.htmxpracticeapp.shared.sql.UsersTable
 @import jte.components.messages.MessageModel
 
 @param ctx: Context
@@ -33,7 +34,10 @@
                  }
             }
             
-            @template.components.messages.messageViewer(messages = messages)
+            @template.components.messages.messageViewer(
+                messages,
+                attention = listOf(ctx.session!!)
+            )
 
             @template.components.messages.sendMessage()
         </div>

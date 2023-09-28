@@ -29,7 +29,10 @@ object MessageRoutes {
                 .reversed()
         }
 
-        ctx.render("components/messages/prependMessageList.kte", mapOf("messages" to messages))
+        ctx.render("components/messages/prependMessageList.kte", mapOf(
+            "messages" to messages,
+            "attention" to listOf(ctx.session!!)
+        ))
     }
 
     @Get("/messages/after")
@@ -48,7 +51,8 @@ object MessageRoutes {
 
         ctx.render("components/messages/appendMessageList.kte", mapOf(
             "messages" to messages,
-            "previous" to messages.lastOrNull()
+            "previous" to messages.lastOrNull(),
+            "attention" to listOf(ctx.session!!)
         ))
     }
 

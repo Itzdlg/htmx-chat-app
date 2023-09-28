@@ -1,6 +1,7 @@
 @import jte.components.messages.MessageModel
 
 @param message: MessageModel
+@param highlightedAuthor: Boolean
 
 !{ val domId = "message-" + message.id }
 
@@ -13,16 +14,18 @@
     let messageEl = document.getElementById("${domId}-timestamp")
     let messageDate = new Date(${message.messageSentAt}).toLocaleTimeString()
 
-    let first = messageDate.substring(0, messageDate.indexOf(' '))
+    let first = messageDate.substring(0, messageDate.indexOf(' ')).split(':')
     let second = messageDate.substring(messageDate.indexOf(' ') + 1).toLowerCase()
 
-    messageEl.innerText = first + " " + second
+    messageEl.innerText = first[0] + ":" + first[1] + " " + second
 
     document.getElementById("${domId}-timestamp-worker").remove()
   }) ();
 </script>
 
-<div class="message-author" id="${domId}-author">
+!{ val highlightedClass = if (highlightedAuthor) "font-bold" else "" }
+
+<div class="message-author ${highlightedClass}" id="${domId}-author">
     ${message.displayName}
 </div>
 
