@@ -20,7 +20,7 @@
     @template.components.nav()
 
     <div class="flex justify-center">
-        <div id="center-body" class="w-[940px] mx-3 mt-10">
+        <div id="center-body" class="w-[950px] mx-3 mt-10">
             !{
                 val messages = transaction {
                     MessagesTable

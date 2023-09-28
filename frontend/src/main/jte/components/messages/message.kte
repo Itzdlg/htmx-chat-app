@@ -4,7 +4,7 @@
 
 !{ val domId = "message-" + message.id }
 
-<div class="message-timestamp opacity-70" id="${domId}-timestamp">
+<div class="message-timestamp opacity-70 text-clip" id="${domId}-timestamp">
     ...
 </div>
 
@@ -19,6 +19,6 @@
     ${message.displayName}
 </div>
 
-<div class="message-content col-span-8" id="${domId}-content">
+<div class="message-content col-span-3 lg:col-span-8" id="${domId}-content">
     ${message.messageContent}
 </div>

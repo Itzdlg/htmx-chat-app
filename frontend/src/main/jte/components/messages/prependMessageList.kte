@@ -12,7 +12,7 @@
         Load Previous Messages
     </p>
 
-    <div class="grid gap-3 grid-cols-10">
+    <div class="grid gap-3 grid-cols-5 lg:grid-cols-10">
         @for (message in messages)
             @template.components.messages.message(message = message)
         @endfor
