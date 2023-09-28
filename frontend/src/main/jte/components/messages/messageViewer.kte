@@ -13,17 +13,19 @@
     <div id="message-viewer-${domId}-messages" class="mx-3 h-96 overflow-y-scroll">
         @template.components.messages.prependMessageList(messages)
         @template.components.messages.appendMessageList(emptyList<MessageModel>(), messages.lastOrNull())
+        <div id="message-viewer-${domId}-bottom" class="h-3"></div>
     </div>
     
     <script>
         setInterval(() => {
           let viewer = document.getElementById("message-viewer-${domId}")
+          let bottom = document.getElementById("message-viewer-${domId}-bottom")
           let children = document.getElementById("message-viewer-${domId}-messages").children
           let lastMessageEl = children.item(children.length - 2)
 
           if (viewer.lastMessageChecked !== lastMessageEl) {
             viewer.lastMessageChecked = lastMessageEl
-            lastMessageEl.scrollIntoView()
+            bottom.scrollIntoView()
           }
         }, 150)
     </script>

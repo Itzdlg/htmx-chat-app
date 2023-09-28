@@ -8,11 +8,18 @@
     ...
 </div>
 
-<script>
-  window.messageEl = document.getElementById("${domId}-timestamp")
-  window.messageDate = new Date(${message.messageSentAt})
+<script id="${domId}-timestamp-worker">
+  (() => {
+    let messageEl = document.getElementById("${domId}-timestamp")
+    let messageDate = new Date(${message.messageSentAt}).toLocaleTimeString()
 
-  window.messageEl.innerText = window.messageDate.toLocaleTimeString()
+    let first = messageDate.substring(0, messageDate.indexOf(' '))
+    let second = messageDate.substring(messageDate.indexOf(' ') + 1).toLowerCase()
+
+    messageEl.innerText = first + " " + second
+
+    document.getElementById("${domId}-timestamp-worker").remove()
+  }) ();
 </script>
 
 <div class="message-author" id="${domId}-author">
